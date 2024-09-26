@@ -3,6 +3,11 @@ import * as OBC from "@thatopen/components"
 import * as OBF from "@thatopen/components-front"
 import * as BUI from "@thatopen/ui"
 import * as CUI from "@thatopen/ui-obc"
+import SceneView from "@arcgis/core/views/SceneView"
+import Map from "@arcgis/core/Map"
+import { ImprovedNoise } from "three/examples/jsm/Addons.js"
+import { AppManager } from "./bim-components"
+import { setSceneView } from "./mainArc"
 import projectInformation from "./components/Panels/ProjectInformation"
 import elementData from "./components/Panels/Selection"
 import settings from "./components/Panels/Settings"
@@ -10,11 +15,6 @@ import load from "./components/Toolbars/Sections/Import"
 import help from "./components/Panels/Help"
 import camera from "./components/Toolbars/Sections/Camera"
 import selection from "./components/Toolbars/Sections/Selection"
-import { AppManager } from "./bim-components"
-import { setSceneView } from "./mainArc"
-import SceneView from "@arcgis/core/views/SceneView"
-import Map from "@arcgis/core/Map"
-import { ImprovedNoise } from "three/examples/jsm/Addons.js"
 
 BUI.Manager.init()
 
@@ -81,7 +81,7 @@ tilesLoader.culler.maxHiddenTime = 1000
 tilesLoader.culler.maxLostTime = 40000
 
 /* Culling is a process of hiding objects that are not visible, either because they are outside of the scope 
-of the camera, or because there are other objects in front of them, hiding them from the camera.*/
+of the camera, or because there are other objects in front of them, hiding them from the camera. */
 const culler = components.get(OBC.Cullers).create(world)
 culler.threshold = 5
 
@@ -184,6 +184,6 @@ viewportGrid.layouts = {
     elements: {},
   },
 }
-viewportGrid.layout = "main"
+viewportGrid.layout = "arcGis"
 
-// setSceneView("viewDiv")
+setSceneView("viewDiv")

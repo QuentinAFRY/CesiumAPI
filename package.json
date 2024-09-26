@@ -16,6 +16,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-prettier": "5.1.3",
+    "tailwindcss": "^3.4.13",
     "typescript": "5.2.2",
     "vite": "^5.4.7"
   },
@@ -29,6 +30,8 @@
     "@thatopen/ui-obc": "~2.2.0",
     "@types/arcgis-js-api": "^4.28.0",
     "jszip": "3.10.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "three": "0.160.1",
     "web-ifc": "0.0.57"
   }
