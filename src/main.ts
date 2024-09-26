@@ -18,7 +18,7 @@ import selection from "./components/Toolbars/Sections/Selection"
 
 BUI.Manager.init()
 
-const viewport = document.getElementById("viewport")! as BUI.Viewport
+const viewport = document.getElementById("viewport")! as HTMLDivElement
 const components = new OBC.Components()
 const worlds = components.get(OBC.Worlds)
 
