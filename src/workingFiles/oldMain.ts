@@ -6,15 +6,14 @@ import * as CUI from "@thatopen/ui-obc"
 import SceneView from "@arcgis/core/views/SceneView"
 import Map from "@arcgis/core/Map"
 import { ImprovedNoise } from "three/examples/jsm/Addons.js"
-import { AppManager } from "./bim-components"
-import { setSceneView } from "./arcGIS"
-import projectInformation from "./components/Panels/ProjectInformation"
-import elementData from "./components/Panels/Selection"
-import settings from "./components/Panels/Settings"
-import load from "./components/Toolbars/Sections/Import"
-import help from "./components/Panels/Help"
-import camera from "./components/Toolbars/Sections/Camera"
-import selection from "./components/Toolbars/Sections/Selection"
+import { AppManager } from "../bim-components"
+import projectInformation from "../components/Panels/ProjectInformation"
+import elementData from "../components/Panels/Selection"
+import settings from "../components/Panels/Settings"
+import load from "../components/Toolbars/Sections/Import"
+import help from "../components/Panels/Help"
+import camera from "../components/Toolbars/Sections/Camera"
+import selection from "../components/Toolbars/Sections/Selection"
 
 BUI.Manager.init()
 
@@ -71,7 +70,7 @@ const indexer = components.get(OBC.IfcRelationsIndexer)
 const classifier = components.get(OBC.Classifier)
 classifier.list.CustomSelections = {}
 
-/* Streaming consists of converting the IFC file to "tiles", and then loading only the data that the user sees. 
+/* Streaming consists of converting the IFC file to "tiles", and then loading only the data that the user sees.
 If you haven't heard of streaming before, check out the geometry tiles and property tiles tutorials first! */
 const tilesLoader = components.get(OBF.IfcStreamer)
 tilesLoader.url = "../resources/tiles/"
@@ -80,7 +79,7 @@ tilesLoader.culler.threshold = 10
 tilesLoader.culler.maxHiddenTime = 1000
 tilesLoader.culler.maxLostTime = 40000
 
-/* Culling is a process of hiding objects that are not visible, either because they are outside of the scope 
+/* Culling is a process of hiding objects that are not visible, either because they are outside of the scope
 of the camera, or because there are other objects in front of them, hiding them from the camera. */
 const culler = components.get(OBC.Cullers).create(world)
 culler.threshold = 5
