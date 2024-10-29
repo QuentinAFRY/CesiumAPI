@@ -84,3 +84,8 @@ bim-grid:not([floating]) > bim-panel {
 bim-grid[floating] > bim-toolbar {
   justify-self: center;
 }
+
+.component {
+  width: 100vw;
+  height: 100vh;
+}

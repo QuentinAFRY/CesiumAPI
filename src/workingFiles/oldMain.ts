@@ -181,4 +181,4 @@ viewportGrid.layouts = {
     elements: {},
   },
 }
-viewportGrid.layout = "arcGis"
+viewportGrid.layout = "main"
