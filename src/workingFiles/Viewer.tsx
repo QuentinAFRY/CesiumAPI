@@ -4,6 +4,9 @@ import * as OBF from "@thatopen/components-front"
 import * as BUI from "@thatopen/ui"
 import * as React from "react"
 import ActionBar from "./ActionBar"
+import load from "../components/Toolbars/Sections/Import"
+import camera from "../components/Toolbars/Sections/Camera"
+import selection from "../components/Toolbars/Sections/Selection"
 
 BUI.Manager.init()
 
@@ -26,15 +29,15 @@ export function WorldProvider( props: { children: React.ReactNode }) {
   )
 }
 
-export default function Viewer() {
+function Viewer() {
   const { setWorld } = React.useContext(WorldContext)
 
-  let world: OBC.Worlds
+  let worlds: OBC.Worlds
 
   const createWorld = async () => {
 
     const components = new OBC.Components()
-    const worlds = components.get(OBC.Worlds)
+    worlds = components.get(OBC.Worlds)
 
     const world = worlds.create<
       OBC.SimpleScene,
@@ -133,7 +136,39 @@ export default function Viewer() {
         if (mesh) world.meshes.delete(mesh)
       }
     })
+
+    const toolbar = BUI.Component.create(() => {
+      return BUI.html`
+        <bim-toolbar>
+          ${load(components)}
+          ${camera(world)}
+          ${selection(components, world)}
+        </bim-toolbar>
+      `
+    })
+
+    const viewportGrid = BUI.Component.create<BUI.Grid>(() => {
+      return BUI.html`
+        <bim-grid floating>
+        </bim-grid>
+      `
+    })
+    
+    viewport.appendChild(viewportGrid)
+    viewportGrid.layouts = {
+      main: {
+        template: `
+          "empty" 1fr
+          "toolbar" auto
+          /1fr
+        `,
+        elements: { toolbar },
+      }
+    }
+    viewportGrid.layout = "main"
   }
+
+  
 
   React.useEffect(() => {
     createWorld()
@@ -141,9 +176,11 @@ export default function Viewer() {
 
   return (
     <>
-      <div id="viewerContainer" style={{height: "100%", width: "100%"}}>
+      <div id="viewerContainer" style={{height: "100vh", width: "100vw"}}>
         <ActionBar onButtonClick={() => {console.log("Hello World")}}></ActionBar>
       </div>
     </>
   )
 }
+
+export default Viewer
