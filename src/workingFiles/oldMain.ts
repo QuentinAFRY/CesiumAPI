@@ -58,9 +58,26 @@ postproduction.customEffects.lineColor = 0x17191c
 const ifcLoader = components.get(OBC.IfcLoader)
 await ifcLoader.setup()
 
-const highlighter = components.get(OBF.Highlighter)
-highlighter.setup({ world })
-highlighter.zoomToSelection = true
+// const highlighter = components.get(OBF.Highlighter)
+// highlighter.setup({ world })
+// highlighter.zoomToSelection = true
+const casters = components.get(OBC.Raycasters);
+const caster = casters.get(world);
+let previousSelection: THREE.Mesh | null = null;
+
+window.onclick = () => {
+  const result = caster.castRay();
+  if (!result || !(result.object instanceof THREE.Mesh)) {
+    console.log("No object selected" + result)
+    return;
+  }
+
+  const distance = result.distance
+  previousSelection = result.object;
+  console.log("Object:" +result.object.userData)
+  console.log("Distance:" + distance)
+};
+
 
 const fragments = components.get(OBC.FragmentsManager)
 
@@ -114,33 +131,31 @@ fragments.onFragmentsDisposed.add(({ fragmentIDs }) => {
   }
 })
 
-const projectInformationPanel = projectInformation(components)
+// const projectInformationPanel = projectInformation(components)
 
 const toolbar = BUI.Component.create(() => {
   return BUI.html`
     <bim-toolbar>
       ${load(components)}
-      ${camera(world)}
-      ${selection(components, world)}
     </bim-toolbar>
   `
 })
 
-const leftPanel = BUI.Component.create(() => {
-  return BUI.html`
-    <bim-tabs switchers-full>
-      <bim-tab name="project" label="Project" icon="ph:building-fill">
-        ${projectInformationPanel}
-      </bim-tab>
-      <bim-tab name="settings" label="Settings" icon="solar:settings-bold">
-        ${settings(components)}
-      </bim-tab>
-      <bim-tab name="help" label="Help" icon="material-symbols:help">
-        ${help}
-      </bim-tab>
-    </bim-tabs>
-  `
-})
+// const leftPanel = BUI.Component.create(() => {
+//   return BUI.html`
+//     <bim-tabs switchers-full>
+//       <bim-tab name="project" label="Project" icon="ph:building-fill">
+//         ${projectInformationPanel}
+//       </bim-tab>
+//       <bim-tab name="settings" label="Settings" icon="solar:settings-bold">
+//         ${settings(components)}
+//       </bim-tab>
+//       <bim-tab name="help" label="Help" icon="material-symbols:help">
+//         ${help}
+//       </bim-tab>
+//     </bim-tabs>
+//   `
+// })
 
 const app = document.getElementById("app")! as BUI.Grid
 app.layouts = {
@@ -150,7 +165,7 @@ app.layouts = {
       /26rem 1fr
     `,
     elements: {
-      leftPanel,
+      // leftPanel,
       viewport,
     },
   },
