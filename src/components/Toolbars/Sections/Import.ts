@@ -116,12 +116,20 @@ export default (components: OBC.Components) => {
     input.click();
   }
 
+  function togglePointer() {
+    const viewport = document.getElementById("viewport");
+    if (!viewport) return;
+    viewport.style.pointerEvents === "none" ? (viewport.style.pointerEvents = "auto") : (viewport.style.pointerEvents = "none");
+  }
+
   return BUI.Component.create<BUI.PanelSection>(() => {
     return BUI.html`
       <bim-toolbar-section label="Import" icon="solar:import-bold">
         ${loadBtn}
         <bim-button @click=${loadFragments} label="Fragments" icon="fluent:puzzle-cube-piece-20-filled" tooltip-title="Load Fragments"
           tooltip-text="Loads a pre-converted IFC from a Fragments file. Use this option if you want to avoid the conversion from IFC to Fragments."></bim-button>
+        <bim-button @click=${togglePointer} label="Toggle Pointer" icon="fluent:xbox-controller-20-filled" tooltip-title="Toggle PointerEvents on/off"
+          tooltip-text="You can swich if pointerEvents are activated for the viewport."></bim-button>
         <!-- <bim-button @click=${loadTiles} label="Tiles" icon="fe:tiled" tooltip-title="Load BIM Tiles"
         tooltip-text="Loads a pre-converted IFC from a Tiles file to stream the model. Perfect for big models."></bim-button> -->
       </bim-toolbar-section>

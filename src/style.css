@@ -89,3 +89,7 @@ bim-grid[floating] > bim-toolbar {
   width: 100vw;
   height: 100vh;
 }
+
+.untouchable {
+  pointer-events: none;
+}
